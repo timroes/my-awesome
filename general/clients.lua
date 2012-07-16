@@ -1,5 +1,5 @@
 -- This module take care of the clients and focus handling
-module(..., package.seeall)
+module("general.clients", package.seeall)
 
 for s = 1, screen.count() do
 	awful.tag({ 1 }, s, awful.layout.suit.flaoting)

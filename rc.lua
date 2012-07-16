@@ -1,4 +1,7 @@
+-- Use this pathes within the script
 configpath = os.getenv("HOME") .. "/.config/awesome/"
+themepath = configpath .. "theme/"
+
 -- Include user awesome config dir into package path
 package.path = package.path .. ";" .. configpath .. 'general/?.lua' 
 
@@ -13,7 +16,7 @@ require("beautiful")
 require("naughty")
 
 -- Include theme
-beautiful.init(configpath .. "theme.lua")
+beautiful.init(themepath .. "theme.lua")
 
 debug = function(txt)
 	naughty.notify({ preset = naughty.config.presets.critical,
@@ -50,13 +53,13 @@ end
 modkey = "Mod4"
 
 -- Focus and client handling
-require("clients")
+require("general.clients")
 
 -- Shortcuts and keyboard behavior
-require("keys")
+require("general.keys")
 
 -- Taskbar
-require("bar")
+require("general.bar")
 
 -- Autostart
-require("autostart")
+require("general.autostart")

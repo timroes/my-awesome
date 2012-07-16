@@ -1,5 +1,5 @@
 -- In this module all shortcut keys and keyboard behavior is defined
-module(..., package.seeall)
+module("general.keys", package.seeall)
 
 -- Function for next window
 next_client = function ()

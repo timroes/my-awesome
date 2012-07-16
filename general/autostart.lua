@@ -1,4 +1,4 @@
-module(..., package.seeall)
+module('general.autostart', package.seeall)
 
 require('lfs')
 
