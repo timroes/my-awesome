@@ -19,6 +19,10 @@ theme.border_normal = "#000000"
 theme.border_focus  = "#535d6c"
 theme.border_marked = "#91231c"
 
+-- Taskswitcher theme
+theme.switcher_bg	= "#FFFFFF"
+theme.switch_border	= "#000000"
+
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:

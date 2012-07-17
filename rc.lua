@@ -3,7 +3,8 @@ configpath = os.getenv("HOME") .. "/.config/awesome/"
 themepath = configpath .. "theme/"
 
 -- Include user awesome config dir into package path
-package.path = package.path .. ";" .. configpath .. 'general/?.lua' 
+package.path = package.path .. ";" .. configpath .. "general/?.lua" 
+package.path = package.path .. ";" .. configpath .. "widgets/?.lua"
 
 -- Include libs
 -- Standard awesome library
@@ -60,6 +61,9 @@ require("general.keys")
 
 -- Taskbar
 require("general.bar")
+
+-- Tools
+require("general.tools")
 
 -- Autostart
 require("general.autostart")
