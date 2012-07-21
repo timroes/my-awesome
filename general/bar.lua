@@ -22,7 +22,7 @@ tasklist_button = awful.util.table.join(
 tasklist = awful.widget.tasklist(function (c) return awful.widget.tasklist.label.allscreen(c,1) end, tasklist_button)
 
 -- Create Taskbar
-taskbar = awful.wibox({ position = "bottom", screen = math.floor(screen.count() / 2) })
+taskbar = awful.wibox({ position = "bottom", screen = primary_screen})
 
 taskbar.widgets = {
 	systray,

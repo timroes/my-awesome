@@ -66,8 +66,11 @@ end
 -- This will invoke the switcher.
 local start_switcher = function()
 
+	s = awful.widget.launcher({ })
+	w.widgets = { s }
 	local im = client.focus.content
 	if not im then
+	debug(" no preview image ")
 		return
 	end
 	img.bg = w.bg
@@ -87,8 +90,22 @@ local make_padding = function(wi, padding)
 	inner.width = wi.width - 2*padding
 	inner.ontop = true
 
-	inner.widgets = wi.widgets
+	local tmp_w
+	for k,v in ipairs(wi.widgets) do
+		tmp_w = awful.util.table.join(
+			tmp_w,
+			{ v }
+		)
+	end
+	inner.widgets = tmp_w
 	wi.widgets = { inner }
+
+	for k,v in ipairs(wi.widgets) do
+		debug ( " -- " .. tostring(k) .. ": " .. tostring(v))
+	end
+	for k,v in ipairs(inner.widgets) do
+		debug (tostring(k) .. ": " .. tostring(v))
+	end
 
 	wi.x = tmpx
 	wi.y = tmpy

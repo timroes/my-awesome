@@ -3,7 +3,6 @@ module("general.keys", package.seeall)
 
 -- Function for next window
 next_client = function ()
-	debug(tostring(client.focus.content))
 	clients = awful.client.visible()
 	for i,c in ipairs(clients) do
 		-- If we found focused client, focus next client
@@ -20,7 +19,9 @@ shortcuts = awful.util.table.join(
 	-- Ctrl + Mod + Delete: restarts awesome
 	awful.key({ modkey, "Control" }, "Delete", awesome.restart),
 	-- Alt + Tab: next doch
-	awful.key({ "Mod1" }, "Tab", next_client)
+	awful.key({ "Mod1" }, "Tab", next_client),
+	-- Mod + End: Exit Awesome
+	awful.key({ modkey }, "End", awesome.quit)
 )
 
 -- Set shortcut keys

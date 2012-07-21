@@ -1,6 +1,7 @@
 -- Use this pathes within the script
 configpath = os.getenv("HOME") .. "/.config/awesome/"
 themepath = configpath .. "theme/"
+primary_screen = 1
 
 -- Include user awesome config dir into package path
 package.path = package.path .. ";" .. configpath .. "general/?.lua" 
@@ -49,6 +50,9 @@ do
     end)
 end
 -- }}}
+
+-- require functions
+require("general.functions")
 
 -- Set modifier key for all operations
 modkey = "Mod4"
