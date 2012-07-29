@@ -52,7 +52,8 @@ client_keys = awful.util.table.join(
 	awful.key({ modkey, }, "Left", move_client_left),
 	-- Alt + F4/Mod + Q: Close windows
 	awful.key({ modkey }, "q", close),
-	awful.key({ "Mod1" }, "F4", close)
+	awful.key({ "Mod1" }, "F4", close),
+	awful.key({ modkey }, "t", function(c) c.ontop = not c.ontop end)
 )
 
 awful.rules.rules = {
@@ -69,10 +70,12 @@ awful.rules.rules = {
 		-- Always show tilda on primary screen
 		rule = { class = "Tilda" },
 		properties = {
+			border_width = 0,
 			screen = primary_screen
 		}
 	}
 }
+
 
 client.add_signal("manage", function (c, startup)
 
@@ -90,7 +93,33 @@ client.add_signal("manage", function (c, startup)
 			awful.placement.no_offscreen(c)
 		end
 	end
+
+	-- Register listener for ontop change property
+	c:add_signal("property::ontop", function() client_update(c) end)
+	c:add_signal("property::maximized_horizontal", function() client_update(c) end)
+	c:add_signal("property::maximized_vertical", function() client_update(c) end)
+
+	client_update(c)
 end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+
+-- todo rewrite and split up into 2 methods
+function client_update(c)
+	if c.ontop then
+		c.border_color = beautiful.border_top_focus or "#FF0000"
+	else
+		if not c.maximized_horizontal or not c.maximized_vertical then
+			if c == client.focus then
+				c.border_color = beautiful.border_focus
+			else
+				c.border_color = beautiful.border_normal
+			end
+		else
+			c.border_width = 0
+		end
+	end	
+end
+
+
+client.add_signal("focus", client_update)
+client.add_signal("unfocus", client_update)

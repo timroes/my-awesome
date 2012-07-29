@@ -21,7 +21,15 @@ shortcuts = awful.util.table.join(
 	-- Alt + Tab: next doch
 	awful.key({ "Mod1" }, "Tab", next_client),
 	-- Mod + End: Exit Awesome
-	awful.key({ modkey }, "End", awesome.quit)
+	awful.key({ modkey }, "End", awesome.quit),
+	awful.key({ modkey }, "d", function() debug("Msg") end),
+
+	-- Multimedia keys
+	--awful.key({ }, "XF86AudioRaiseVolume",    function () awful.util.spawn("amixer set Master 2+") end),
+	--awful.key({ }, "XF86AudioLowerVolume",    function () awful.util.spawn("amixer set Master 2-") end),
+	--awful.key({ }, "XF86AudioMute",    function () awful.util.spawn("amixer set Master toggle") end)
+	--
+	awful.key({ modkey }, "space", function() awful.util.spawn("grun") end)
 )
 
 -- Set shortcut keys

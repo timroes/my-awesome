@@ -66,15 +66,36 @@ end
 -- This will invoke the switcher.
 local start_switcher = function()
 
-	s = awful.widget.launcher({ })
-	w.widgets = { s }
-	local im = client.focus.content
-	if not im then
-	debug(" no preview image ")
-		return
+	local comp = function(cmd, pos, ncomp, shell)
+		debug("test")
+		return "Test", 2
 	end
-	img.bg = w.bg
-	img.image = scale_image(im, 300)
+
+	awful.prompt.run({ prompt = "Bitte mal machen"}, p.widget, function(c) debug("test: " .. tostring(c)) end, comp)
+	keygrabber.stop()
+	p.widget.text = "|"
+	keygrabber.run(function(mod, key, ev)
+		if key == "Escape" then
+			return false
+		end
+		
+		if ev ~= "release" or key:len() > 1 then
+			return true
+		end
+
+		p.widget.text = string.sub(p.widget.text, 0, -2)  .. key .. "|"
+		return true
+	end)
+
+	--s = awful.widget.launcher({ })
+	--w.widgets = { s }
+	--local im = client.focus.content
+	--if not im then
+	--debug(" no preview image ")
+	--	return
+	--end
+	--img.bg = w.bg
+	--img.image = scale_image(im, 300)
 end
 
 local make_padding = function(wi, padding)
@@ -133,17 +154,19 @@ local create_widget = function()
 	img.width = 400
 	img.height = 400
 	img.bg = "#FF0000"
+		
+	p = awful.widget.prompt()
 
-	w.widgets = { img }
-
-	w = make_padding(w, 15)
+	w.widgets = { p }
+	
+	--w = make_padding(w, 15)
 
 end
 
 function register(mod, key, s)
 	
 	if s == nil then
-		s = math.floor(screen.count() / 2)
+		s = primary_screen
 	end
 
 	-- Register for given shortcut

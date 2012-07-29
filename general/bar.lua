@@ -7,7 +7,7 @@ clock = awful.widget.textclock({ align = "right" }, "%e. %b  %H:%M", 1)
 systray = widget({ type = "systray" })
 
 
--- Tasklist
+-- 
 tasklist_button = awful.util.table.join(
 	awful.button({ }, 1, function (c)
 		if c == client.focus then
@@ -16,6 +16,9 @@ tasklist_button = awful.util.table.join(
 			client.focus = c
 			c:raise()
 		end
+	end),
+	awful.button({ }, 2, function (c)
+		c:kill()
 	end)
 )
 

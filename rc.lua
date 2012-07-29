@@ -1,6 +1,7 @@
 -- Use this pathes within the script
 configpath = os.getenv("HOME") .. "/.config/awesome/"
 themepath = configpath .. "theme/"
+-- Set your primary monitor (for taskbar, opening windows, etc.)
 primary_screen = 1
 
 -- Include user awesome config dir into package path
@@ -23,7 +24,8 @@ beautiful.init(themepath .. "theme.lua")
 debug = function(txt)
 	naughty.notify({ preset = naughty.config.presets.critical,
 		title = "Debug Output",
-		text = txt })
+		text = txt,
+		position = "top_right"})
 end
 
 -- {{{ Error handling
@@ -59,6 +61,9 @@ modkey = "Mod4"
 
 -- Focus and client handling
 require("general.clients")
+
+-- Autoclient
+require("general.autoclient")
 
 -- Shortcuts and keyboard behavior
 require("general.keys")
