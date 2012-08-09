@@ -1,7 +1,7 @@
 module("general.bar", package.seeall)
 
 -- Clock
-clock = awful.widget.textclock({ align = "right" }, "%e. %b  %H:%M", 1)
+clock = awful.widget.textclock({ align = "right" }, "%a, %e. %b  %H:%M", 1)
 
 -- Systray
 systray = widget({ type = "systray" })
