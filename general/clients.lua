@@ -100,6 +100,9 @@ client.add_signal("manage", function (c, startup)
 	c:add_signal("property::maximized_vertical", function() client_update(c) end)
 
 	client_update(c)
+	
+	-- Raise window on startup
+	c:raise()
 end)
 
 
