@@ -1,6 +1,6 @@
 module("general.tools", package.seeall)
 
-switcher = require("widgets.launcher")
+switcher = require("widgets.clientswitcher")
 
-widgets.launcher.register({ modkey }, "BackSpace")
+switcher.register(modkey, "Tab")
 --switcher.register({ modkey }, "Tab")

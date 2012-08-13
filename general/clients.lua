@@ -117,7 +117,8 @@ awful.rules.rules = {
 		rule = { class = "Tilda" },
 		properties = {
 			border_width = 0,
-			screen = primary_screen
+			screen = primary_screen,
+			opacity = 0.8
 		}
 	}
 }
