@@ -1,36 +1,63 @@
 -- This module take care of the clients and focus handling
 module("general.clients", package.seeall)
 
-require("general.titlebar")
-
 -- Yeah, I neither use tiling nor tags in awesome. 
 -- Pretty much, what it was made for :)
 for s = 1, screen.count() do
 	awful.tag({ 1 }, s, awful.layout.suit.floating)
 end
 
--- Functions to move windows to other screen
+-- Functions to move windows to other screen.
+-- @param c The client to move to another screen.
+-- @param d The direction to move (positive numbers for next 
+-- 	screens, negtive for previous).
 local move_client = function(c, d)
+	-- Save currently focused client and mouse position
+	local focus = client.focus
 	local tmp_mouse = mouse.coords()
+
+	-- Calculate new screen and move client to it
 	local s = (c.screen + d) % screen.count()
 	awful.client.movetoscreen(c, s)
 	c:raise()
-	-- Restore mouse coordinate
+
+	-- Remaximize it on that screen (to take care of bars on that screen)
+	if c.maximized_horizontal then
+		local s = c.screen
+		c.maximized_horizontal = false
+		c.screen = s
+		c.maximized_horizontal = true
+	end
+	if c.maximized_vertical then
+		local s = c.screen
+		c.maximized_vertical = false
+		c.screen = s
+		c.maximized_vertical = true
+	end
+
+	-- Restore mouse coordinate and focused client
+	-- By chance it looses the focused client within this function
 	mouse.coords(tmp_mouse)
+	client.focus = focus
 end
 
+-- Move a client to the next screen.
+-- @param c The client to move.
 local move_client_right = function(c) 
 	move_client(c, 1)
 end
 
+-- Move a client to the previous screen.
+-- @param c The client to move.
 local move_client_left = function(c)
 	move_client(c, -1)
 end
 
+-- Close a client.
+-- @param c Client to close.
 local close = function(c)
 	c:kill()
 end
-
 
 -- Set button actions for clicks on clients
 client_buttons = awful.util.table.join(
