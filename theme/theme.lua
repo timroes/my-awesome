@@ -42,6 +42,6 @@ theme.titlebar_bg_normal = "#666666"
 --theme.taglist_bg_focus = "#ff0000"o
 
 -- You can use your own command to set your wallpaper
-theme.wallpaper_cmd = { "awsetbg " .. themepath .. "images/background.jpg" }
+theme.wallpaper_cmd = { "awsetbg -t " .. themepath .. "images/background.jpg" }
 
 return theme
