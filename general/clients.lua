@@ -59,6 +59,22 @@ local close = function(c)
 	c:kill()
 end
 
+local opacity_delta = 0.05
+
+local function change_opacity(c, d)
+	local o = c.opacity + d
+	o = math.min(math.max(0.05, o), 1)
+	c.opacity = o
+end
+
+local function opacity_up(c)
+	change_opacity(c, opacity_delta)
+end
+
+local function opacity_down(c)
+	change_opacity(c, -opacity_delta)
+end
+
 -- Set button actions for clicks on clients
 client_buttons = awful.util.table.join(
 	-- Mouse1: raise and focus window
@@ -80,7 +96,10 @@ client_keys = awful.util.table.join(
 	-- Alt + F4/Mod + Q: Close windows
 	awful.key({ modkey }, "q", close),
 	awful.key({ "Mod1" }, "F4", close),
-	awful.key({ modkey }, "t", function(c) c.ontop = not c.ontop end)
+	awful.key({ modkey }, "t", function(c) c.ontop = not c.ontop end),
+	-- Change transparency
+	awful.key({ modkey }, "KP_Add", opacity_up),
+	awful.key({ modkey }, "KP_Subtract", opacity_down)
 )
 
 awful.rules.rules = {
