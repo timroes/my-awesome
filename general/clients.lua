@@ -12,14 +12,12 @@ end
 -- @param d The direction to move (positive numbers for next 
 -- 	screens, negtive for previous).
 local move_client = function(c, d)
-	-- Save currently focused client and mouse position
-	local focus = client.focus
+	-- Save mouse position
 	local tmp_mouse = mouse.coords()
 
 	-- Calculate new screen and move client to it
 	local s = (c.screen + d) % screen.count()
 	awful.client.movetoscreen(c, s)
-	c:raise()
 
 	-- Remaximize it on that screen (to take care of bars on that screen)
 	if c.maximized_horizontal then
@@ -38,7 +36,8 @@ local move_client = function(c, d)
 	-- Restore mouse coordinate and focused client
 	-- By chance it looses the focused client within this function
 	mouse.coords(tmp_mouse)
-	client.focus = focus
+	client.focus = c
+	c:raise()
 end
 
 -- Move a client to the next screen.
@@ -57,22 +56,6 @@ end
 -- @param c Client to close.
 local close = function(c)
 	c:kill()
-end
-
-local opacity_delta = 0.05
-
-local function change_opacity(c, d)
-	local o = c.opacity + d
-	o = math.min(math.max(0.05, o), 1)
-	c.opacity = o
-end
-
-local function opacity_up(c)
-	change_opacity(c, opacity_delta)
-end
-
-local function opacity_down(c)
-	change_opacity(c, -opacity_delta)
 end
 
 -- Set button actions for clicks on clients

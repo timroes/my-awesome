@@ -25,5 +25,16 @@ shortcuts = awful.util.table.join(
 	awful.key({ modkey }, "space", function() awful.util.spawn("grun") end)
 )
 
+buttons = awful.util.table.join(
+	awful.button({ modkey }, 4, function() 
+		debug("up")
+		opacity_up(client.focus) 
+	end),
+	awful.button({ modkey }, 5, function() opacity_down(client.focus) end)
+)
+
+-- Set shortcut buttons
+root.buttons(buttons)
+
 -- Set shortcut keys
 root.keys(shortcuts)

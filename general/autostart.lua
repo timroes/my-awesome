@@ -6,7 +6,7 @@ function autostart(dir)
 	for s in lfs.dir(dir) do
 		local f = lfs.attributes(dir ..s)
 		if f.mode == "file" then
-			awful.util.spawn(dir .. s, false, primary_screen)
+			run_once(dir .. s)
 		end
 	end
 end
