@@ -63,7 +63,10 @@ client_buttons = awful.util.table.join(
 	-- Mouse1: raise and focus window
 	awful.button({ }, 1, function(c) client.focus = c; c:raise() end),
 	-- Mod + Left Mouse: Move window
-	awful.button({ modkey }, 1, awful.mouse.client.move),
+	awful.button({ modkey }, 1, function(c) 
+		client.focus = c
+		awful.mouse.client.move(c)
+	end),
 	-- Mod + Middle Mouse: Close client
 	awful.button({ modkey }, 2, function(c) c:kill() end),
 	-- Mod + Right Mouse: Resize window

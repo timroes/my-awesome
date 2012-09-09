@@ -1,5 +1,7 @@
 module("general.bar", package.seeall)
 
+require("widgets.volumeicon")
+
 -- Clock
 clock = awful.widget.textclock({ align = "right" }, "%a, %e. %b  %H:%M", 1)
 
@@ -28,6 +30,7 @@ tasklist = awful.widget.tasklist(function (c) return awful.widget.tasklist.label
 taskbar = awful.wibox({ position = "bottom", screen = primary_screen})
 
 taskbar.widgets = {
+	widgets.volumeicon(),
 	systray,
 	clock,
 	tasklist,
