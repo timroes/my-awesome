@@ -8,6 +8,7 @@ shortcuts = awful.util.table.join(
 	-- Mod + End: Exit Awesome
 	awful.key({ modkey }, "End", awesome.quit),
 	awful.key({ modkey }, "d", function() debug("Msg") end),
+	awful.key({ modkey }, "e", function() awful.util.spawn("pcmanfm ~") end),
 
 	-- Multimedia keys
 	awful.key({ }, "XF86AudioPlay", function() awful.util.spawn("mpc toggle -q") end),

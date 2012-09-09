@@ -109,6 +109,7 @@ awful.rules.rules = {
 	}
 }
 
+client.add_signal("focus", function(c) c:raise() end)
 
 client.add_signal("manage", function (c, startup)
 
