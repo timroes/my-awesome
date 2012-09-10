@@ -7,7 +7,6 @@ shortcuts = awful.util.table.join(
 	awful.key({ modkey, "Control" }, "Delete", awesome.restart),
 	-- Mod + End: Exit Awesome
 	awful.key({ modkey }, "End", awesome.quit),
-	awful.key({ modkey }, "d", function() debug("Msg") end),
 	awful.key({ modkey }, "e", function() awful.util.spawn("pcmanfm ~") end),
 
 	-- Multimedia keys
@@ -23,15 +22,7 @@ shortcuts = awful.util.table.join(
 	end),
 
 	-- Grun launcher
-	awful.key({ modkey }, "space", function() awful.util.spawn("grun") end)
-)
-
-buttons = awful.util.table.join(
-	awful.button({ modkey }, 4, function() 
-		debug("up")
-		opacity_up(client.focus) 
-	end),
-	awful.button({ modkey }, 5, function() opacity_down(client.focus) end)
+	awful.key({ modkey }, "space", function() awful.util.spawn("/usr/bin/python2 /home/timroes/code/pystart/pystart.py") end)
 )
 
 -- Set shortcut buttons
