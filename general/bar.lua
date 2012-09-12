@@ -5,6 +5,12 @@ require("widgets.volumeicon")
 -- Clock
 clock = awful.widget.textclock({ align = "right" }, "%a, %e. %b  %H:%M", 1)
 
+clock_button = awful.util.table.join(
+	awful.button({ }, 1, function() awful.util.spawn("chromium -app=https://www.google.com/calendar") end)
+)
+
+clock:buttons(clock_button)
+
 -- Systray
 systray = widget({ type = "systray" })
 

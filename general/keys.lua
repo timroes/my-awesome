@@ -25,8 +25,5 @@ shortcuts = awful.util.table.join(
 	awful.key({ modkey }, "space", function() awful.util.spawn("/usr/bin/python2 /home/timroes/code/pystart/pystart.py") end)
 )
 
--- Set shortcut buttons
-root.buttons(buttons)
-
 -- Set shortcut keys
 root.keys(shortcuts)
