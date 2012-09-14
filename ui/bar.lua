@@ -1,5 +1,3 @@
-module("general.bar", package.seeall)
-
 require("widgets.volumeicon")
 
 -- Clock

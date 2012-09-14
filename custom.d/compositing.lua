@@ -1,7 +1,6 @@
--- Stop compositing when wine starts
-
 composer = "compton"
 
+-- Stop compositing when wine starts
 client.add_signal("manage", function(c, startup)
 
 	if c.class == "Wine" then
@@ -12,6 +11,10 @@ end)
 
 -- Start compositing when last wine window is closed
 client.add_signal("unmanage", function(c)
+
+	if c.class:lower() ~= "wine" then
+		return
+	end
 
 	local clients = client.get()
 

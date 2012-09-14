@@ -50,9 +50,9 @@ modkey = "Mod4"
 
 -- Include general functions and client handling
 dofile(configpath .. 'functions.lua')
-dofile(configpath .. 'clients.lua')
 
 -- {{{ Include all ui elements
+dofile(configpath .. 'ui/clients.lua')
 dofile(configpath .. 'ui/bar.lua')
 dofile(configpath .. 'ui/keys.lua')
 dofile(configpath .. 'ui/tools.lua')

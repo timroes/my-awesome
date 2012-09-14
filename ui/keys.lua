@@ -1,5 +1,4 @@
 -- In this module all shortcut keys and keyboard behavior is defined
-module("general.keys", package.seeall)
 
 -- Define Shortcuts
 shortcuts = awful.util.table.join(
