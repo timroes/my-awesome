@@ -1,4 +1,8 @@
-module("widgets.clientswitcher", package.seeall)
+local root = root
+local awful = awful
+local setmetatable = setmetatable
+
+module("widgets.clientswitcher")
 
 local modk, switchk, oldclient, oldopacity
 local lastontop
@@ -118,7 +122,7 @@ end
 -- to cancel the switching and go back to the focused client, when switching started.
 -- @param modkey The modkey
 -- @param switchkey The switching key
-function register(modkey, switchkey)
+function register(_, modkey, switchkey)
 	modk = modkey
 	switchk = switchkey
 	keys = awful.util.table.join(root.keys(), 
@@ -126,3 +130,5 @@ function register(modkey, switchkey)
 	)
 	root.keys(keys)
 end
+
+setmetatable(_M, { __call = register })

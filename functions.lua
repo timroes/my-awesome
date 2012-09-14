@@ -1,4 +1,9 @@
-module("general.functions", package.seeall)
+_G.debug = function(obj)
+	naughty.notify({ preset = naughty.config.presets.critical,
+		title = "Debug Output",
+		text = tostring(obj),
+		position = "top_right"})
+end
 
 _G.max_client = function(c)
 	if c.maximized_horizontal == true and c.maximized_vertical == true then
@@ -13,6 +18,7 @@ _G.max_client = function(c)
 	end
 end
 
+-- {{{ Change opacity of a client
 local opacity_delta = 0.05
 
 local function change_opacity(c, d)
@@ -28,37 +34,7 @@ end
 _G.opacity_down = function(c)
 	change_opacity(c, -opacity_delta)
 end
-
-_G.round_wibox_top_corners = function(wi, args)
-
-	if not wi then return end
-
-	if not args then return wi end
-
-	if not args.left then args.left = 0 end
-	if not args.right then args.right = 0 end
-
-	local l = args.left
-	local r = args.right
-	local h = wi.height
-	local w = wi.width
-
-	local img = image.argb32(w, h, nil)
-	img:draw_rectangle(0, 0, w, h,true,"#FFFFFF")
-	-- Left corner
-	img:draw_circle(l, l, l, l, true,"#000000")
-	img:draw_rectangle(l, 0, w - (l + r), h, true, "#000000")
-	img:draw_rectangle(0, l, w - r, h - l, true, "#000000")
-	-- Left corner
-	img:draw_circle(w - r, r, r, r, true, "#000000")
-	img:draw_rectangle(l, r, w - l, h - r, true, "#000000")
-
-	wi.shape_clip = img
-	wi.shape_bounding = img
-
-	return wi
-
-end
+-- }}}
 
 _G.hspacer = function(size)
 	local w = widget({ type = "textbox" })
@@ -74,6 +50,7 @@ _G.vspacer = function(size)
 end
 
 require("lfs") 
+
 -- {{{ Run programm once
 local function processwalker()
    local function yieldprocess()

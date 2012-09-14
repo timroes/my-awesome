@@ -1,5 +1,4 @@
 -- This module take care of the clients and focus handling
-module("general.clients", package.seeall)
 
 -- Yeah, I neither use tiling nor tags in awesome. 
 -- Pretty much, what it was made for :)
@@ -156,7 +155,6 @@ function client_update(c)
 		end
 	end	
 end
-
 
 client.add_signal("focus", client_update)
 client.add_signal("unfocus", client_update)
