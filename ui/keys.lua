@@ -2,6 +2,7 @@
 
 -- Define Shortcuts
 shortcuts = awful.util.table.join(
+	root.keys(),
 	-- Ctrl + Mod + Delete: restarts awesome
 	awful.key({ modkey, "Control" }, "Delete", awesome.restart),
 	-- Mod + End: Exit Awesome

@@ -48,7 +48,10 @@ primary_screen = 1
 modkey = "Mod4"
 -- }}}
 
--- Include general functions and client handling
+-- Clear all shortcuts before including any file
+root.keys({ })
+
+-- Include general functions 
 dofile(configpath .. 'functions.lua')
 
 -- {{{ Include all ui elements
