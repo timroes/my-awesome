@@ -1,6 +1,9 @@
 local root = root
 local awful = awful
+local client = client
+local ipairs = ipairs
 local setmetatable = setmetatable
+local keygrabber = keygrabber
 
 module("widgets.clientswitcher")
 
