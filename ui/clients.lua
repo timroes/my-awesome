@@ -105,6 +105,16 @@ awful.rules.rules = {
 			screen = primary_screen,
 			opacity = 0.8
 		}
+	},{
+		rule = { class = "Wine" },
+		properties = {
+			border_width = 0
+		}
+	},{
+		rule = { class = "RAIL" },
+		properties = {
+			border_width = 0
+		}
 	}
 }
 
