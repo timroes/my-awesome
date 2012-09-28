@@ -1,5 +1,14 @@
 -- This module take care of the clients and focus handling
 
+-- Locks to permit applying of border color and width changing
+local color_borders_lock = false
+local draw_borders_lock = false
+
+local function set_border_refreshing(s)
+	color_borders_lock = not s
+	draw_borders_lock = not s
+end
+
 -- Yeah, I neither use tiling nor tags in awesome. 
 -- Pretty much, what it was made for :)
 for s = 1, screen.count() do
@@ -11,6 +20,9 @@ end
 -- @param d The direction to move (positive numbers for next 
 -- 	screens, negtive for previous).
 local move_client = function(c, d)
+
+	set_border_refreshing(false)
+
 	-- Save mouse position
 	local tmp_mouse = mouse.coords()
 
@@ -37,6 +49,9 @@ local move_client = function(c, d)
 	mouse.coords(tmp_mouse)
 	client.focus = c
 	c:raise()
+
+	set_border_refreshing(true)
+
 end
 
 -- Move a client to the next screen.
@@ -93,6 +108,7 @@ awful.rules.rules = {
 		rule = { },
 		properties = {
 			border_width = beautiful.border_width,
+			border_color = beautiful.border_normal,
 			focus = true,
 			buttons = client_buttons,
 			keys = client_keys
@@ -118,7 +134,70 @@ awful.rules.rules = {
 	}
 }
 
+-- Raise clients on focus
 client.add_signal("focus", function(c) c:raise() end)
+
+-- Apply all rules for a specific property to a client
+function apply_rule(c, what)
+	local rules = awful.rules.rules
+	for i,r in ipairs(rules) do
+		if awful.rules.match(c, r.rule) then
+			if what == "border_color" then
+				c.border_color = r.properties.border_color or c.border_color
+			elseif what == "border_width" then
+				c.border_width = r.properties.border_width or c.border_width
+			end
+		end
+	end
+end
+
+-- Choose the color of the border for a client
+-- depending on its focused and ontop state.
+function color_borders(c)
+	-- Function can only be used once at a time
+	if color_borders_lock then return end
+	color_borders_lock = true
+
+	-- Apply all border_color from rules
+	apply_rule(c, "border_color")
+
+	if c.ontop then
+		c.border_color = beautiful.border_top_focus or "#FF0000"
+	else
+		if c == client.focus then
+			c.border_color = beautiful.border_focus
+		end
+	end
+
+	color_borders_lock = false
+end
+
+function draw_borders(c)
+	-- Lock function
+	if draw_borders_lock then return end
+	draw_borders_lock = true
+
+
+	if c.maximized_horizontal and c.maximized_vertical then
+		if c.border_width ~= 0 then
+			c.border_width = 0
+			-- Need to remaximize it, so it will take the
+			-- new border with in respect. Otherwise there
+			-- would stay some blank area at the border.
+			c.maximized_horizontal = false
+			c.maximized_horizontal = true
+			c.maximized_vertical = false
+			c.maximized_vertical = true
+		end
+	else
+		-- Apply all border_width from rules
+		apply_rule(c, "border_width")
+	end
+
+	c:redraw()
+
+	draw_borders_lock = false
+end
 
 client.add_signal("manage", function (c, startup)
 
@@ -138,33 +217,16 @@ client.add_signal("manage", function (c, startup)
 	end
 
 	-- Register listener for ontop change property
-	c:add_signal("property::ontop", function() client_update(c) end)
-	c:add_signal("property::maximized_horizontal", function() client_update(c) end)
-	c:add_signal("property::maximized_vertical", function() client_update(c) end)
-
-	client_update(c)
+	c:add_signal("property::ontop", function() color_borders(c) end)
+	c:add_signal("property::maximized_horizontal", function() draw_borders(c) end)
+	c:add_signal("property::maximized_vertical", function() draw_borders(c) end)
+	
+	--draw_borders(c)
+	color_borders(c)
 	
 	-- Raise window on startup
 	c:raise()
 end)
 
-
--- todo rewrite and split up into 2 methods
-function client_update(c)
-	if c.ontop then
-		c.border_color = beautiful.border_top_focus or "#FF0000"
-	else
-		if not c.maximized_horizontal or not c.maximized_vertical then
-			if c == client.focus then
-				c.border_color = beautiful.border_focus
-			else
-				c.border_color = beautiful.border_normal
-			end
-		else
-			c.border_width = 0
-		end
-	end	
-end
-
-client.add_signal("focus", client_update)
-client.add_signal("unfocus", client_update)
+client.add_signal("focus", color_borders)
+client.add_signal("unfocus", color_borders)
