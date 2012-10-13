@@ -221,7 +221,7 @@ client.add_signal("manage", function (c, startup)
 	c:add_signal("property::maximized_horizontal", function() draw_borders(c) end)
 	c:add_signal("property::maximized_vertical", function() draw_borders(c) end)
 	
-	--draw_borders(c)
+	draw_borders(c)
 	color_borders(c)
 	
 	-- Raise window on startup
