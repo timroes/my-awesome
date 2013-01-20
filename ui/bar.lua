@@ -1,4 +1,5 @@
 require("widgets.volumeicon")
+require("widgets.networkmonitor")
 
 -- Clock
 clock = awful.widget.textclock({ align = "right" }, "%a, %e. %b  %H:%M", 1)
@@ -34,9 +35,11 @@ tasklist = awful.widget.tasklist(function (c) return awful.widget.tasklist.label
 taskbar = awful.wibox({ position = "bottom", screen = primary_screen})
 
 taskbar.widgets = {
+	widgets.networkmonitor('wlan0'),
 	widgets.volumeicon(),
 	systray,
 	clock,
 	tasklist,
 	layout = awful.widget.layout.horizontal.rightleft
 }
+
