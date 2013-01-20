@@ -7,7 +7,8 @@ shortcuts = awful.util.table.join(
 	awful.key({ modkey, "Control" }, "Delete", awesome.restart),
 	-- Mod + End: Exit Awesome
 	awful.key({ modkey }, "End", awesome.quit),
-	awful.key({ modkey }, "e", function() awful.util.spawn("pcmanfm ~") end),
+	awful.key({ modkey }, "z", function() awful.util.spawn("pcmanfm ~") end),
+	awful.key({ modkey }, "l", function() awful.util.spawn("xscreensaver-command -lock") end),
 
 	-- Multimedia keys
 	awful.key({ }, "XF86AudioPlay", function() awful.util.spawn("mpc toggle -q") end),
@@ -20,9 +21,15 @@ shortcuts = awful.util.table.join(
 		end
 		naughty.notify({ text = song, title = "Currently playing:", timeout = 3 })
 	end),
+	awful.key({ modkey }, "Delete", function() awful.util.spawn("mpc del 0") end),
 
-	-- Grun launcher
-	awful.key({ modkey }, "space", function() awful.util.spawn("/usr/bin/python2 /home/timroes/code/pystart/pystart.py") end)
+	-- Start pystart
+	awful.key({ modkey }, "space", function() awful.util.spawn("/usr/bin/python2 /home/timroes/code/pystart/pystart.py") end),
+
+	-- Screenshots
+	awful.key({  }, "Print", function() awful.util.spawn("screenshot win") end),
+	awful.key({ modkey }, "Print", function() awful.util.spawn("screenshot scr") end)
+
 )
 
 -- Set shortcut keys
