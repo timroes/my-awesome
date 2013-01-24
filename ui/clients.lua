@@ -119,7 +119,7 @@ awful.rules.rules = {
 		properties = {
 			border_width = 0,
 			screen = primary_screen,
-			opacity = 0.8
+			opacity = 0.9
 		}
 	},{
 		rule = { class = "Wine" },
