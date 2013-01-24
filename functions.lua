@@ -25,7 +25,6 @@ local function change_opacity(c, d)
 	local o = c.opacity + d
 	o = math.min(math.max(0.05, o), 1)
 	c.opacity = o
-	deb(c.opacity)
 end
 
 _G.opacity_up = function(c)
