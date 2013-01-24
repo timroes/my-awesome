@@ -1,5 +1,5 @@
-require("widgets.clientswitcher")
-widgets.clientswitcher("Mod1", "Tab")
+clientswitcher = require("widgets.clientswitcher")
+clientswitcher("Mod1", "Tab")
 
-require("widgets.history")
-widgets.history.allclients()
+history = require("widgets.history")
+history.allclients()

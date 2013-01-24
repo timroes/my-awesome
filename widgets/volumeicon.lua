@@ -1,5 +1,5 @@
 local setmetatable = setmetatable
-local w = widget
+local w = require("wibox")
 local math = math
 local io = io
 local tostring = tostring
@@ -45,7 +45,7 @@ local function update()
 		format = "[%s<span color='red'>M</span>]"
 	end
 
-	widget.text = string.format(format, status.vol)
+	widget:set_text(string.format(format, status.vol))
 
 end
 
@@ -72,7 +72,7 @@ end
 -- for volume control.
 local function create(_)
 	
-	widget = w({ type = "textbox" })
+	widget = w.widget.textbox()
 	update()
 
 	widget:buttons(awful.util.table.join(

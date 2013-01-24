@@ -5,7 +5,7 @@ local suspendfor = {
 	"Isaac"
 }
 
-client.add_signal("manage", function(c, startup)
+client.connect_signal("manage", function(c, startup)
 
 	for _,v in pairs(suspendfor) do
 		if v == c.name then

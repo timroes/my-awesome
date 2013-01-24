@@ -135,7 +135,7 @@ awful.rules.rules = {
 }
 
 -- Raise clients on focus
-client.add_signal("focus", function(c) c:raise() end)
+client.connect_signal("focus", function(c) c:raise() end)
 
 -- Apply all rules for a specific property to a client
 function apply_rule(c, what)
@@ -194,12 +194,12 @@ function draw_borders(c)
 		apply_rule(c, "border_width")
 	end
 
-	c:redraw()
+	--c:redraw()
 
 	draw_borders_lock = false
 end
 
-client.add_signal("manage", function (c, startup)
+client.connect_signal("manage", function (c, startup)
 
 	-- Add a titlebar
 	-- general.titlebar.create(c)
@@ -217,9 +217,9 @@ client.add_signal("manage", function (c, startup)
 	end
 
 	-- Register listener for ontop change property
-	c:add_signal("property::ontop", function() color_borders(c) end)
-	c:add_signal("property::maximized_horizontal", function() draw_borders(c) end)
-	c:add_signal("property::maximized_vertical", function() draw_borders(c) end)
+	c:connect_signal("property::ontop", function() color_borders(c) end)
+	c:connect_signal("property::maximized_horizontal", function() draw_borders(c) end)
+	c:connect_signal("property::maximized_vertical", function() draw_borders(c) end)
 	
 	draw_borders(c)
 	color_borders(c)
@@ -228,5 +228,5 @@ client.add_signal("manage", function (c, startup)
 	c:raise()
 end)
 
-client.add_signal("focus", color_borders)
-client.add_signal("unfocus", color_borders)
+client.connect_signal("focus", color_borders)
+client.connect_signal("unfocus", color_borders)

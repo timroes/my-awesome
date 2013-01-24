@@ -33,6 +33,6 @@ end
 -- To have this working correctly you should NOT include
 -- the awful.autofocus module.
 function allclients() 
-	client.add_signal('focus', focused)
-	client.add_signal('unmanage', unmanaged)
+	client.connect_signal('focus', focused)
+	client.connect_signal('unmanage', unmanaged)
 end

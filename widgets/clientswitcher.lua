@@ -102,14 +102,14 @@ local function start_switching()
 			restore_state()
 			client.focus = oldclient
 			restore_opacity()
-			return false
+			keygrabber.stop()
 		else
 			-- If the modkey has been released finish switching.
 			restore_state()
 			-- Raise latest focused client
 			client.focus:raise()
 			restore_opacity()
-			return false
+			keygrabber.stop()
 		end
 
 		return true

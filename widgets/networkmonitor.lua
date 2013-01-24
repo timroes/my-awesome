@@ -2,7 +2,7 @@ local debug = debug
 local io = io
 local table = table
 local timer = timer
-local w = widget
+local w = wibox
 local string = string
 local math = math
 local setmetatable = setmetatable
@@ -76,14 +76,14 @@ end
 
 local function create(_, dev)
 	
-	widget = w({ type = "textbox" })
+	widget = w.widget.textbox()
 
 	device = dev or 'lo'
 	local refresh = timer({ timeout = 1 })
-	refresh:add_signal('timeout', function(self)
+	refresh:connect_signal('timeout', function(self)
 		local dev = get_device(device)
 		if dev then
-			widget.text = string.format('↓ %05.1f ↑ %05.1f', dev.down, dev.up)
+			widget:set_text(string.format('↓ %05.1f ↑ %05.1f', dev.down, dev.up))
 		end
 	end)
 	refresh:start()

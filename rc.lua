@@ -1,11 +1,13 @@
 -- {{{ Include awesome libs
 -- Standard awesome library
-require("awful")
-require("awful.rules")
+awful = require("awful")
+awful.rules = require("awful.rules")
+wibox = require("wibox")
+gears = require("gears")
 -- Theme handling library
-require("beautiful")
+beautiful = require("beautiful")
 -- Notification library
-require("naughty")
+naughty = require("naughty")
 -- }}}
 
 -- {{{ Error handling
@@ -20,7 +22,7 @@ end
 -- Handle runtime errors after startup
 do
     local in_error = false
-    awesome.add_signal("debug::error", function (err)
+    awesome.connect_signal("debug::error", function (err)
 	-- Make sure we don't go into an endless error loop
 	if in_error then return end
 	in_error = true
@@ -54,13 +56,14 @@ root.keys({ })
 dofile(configpath .. 'functions.lua')
 
 -- {{{ Include all ui elements
+dofile(configpath .. 'ui/wallpaper.lua')
 dofile(configpath .. 'ui/clients.lua')
 dofile(configpath .. 'ui/bar.lua')
 dofile(configpath .. 'ui/keys.lua')
 dofile(configpath .. 'ui/tools.lua')
 -- }}}
 
-require('lfs')
+lfs = require('lfs')
 -- {{{ Load custom scripts from custom.d directory
 customdir = configpath .. 'custom.d/'
 for s in lfs.dir(customdir) do

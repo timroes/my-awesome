@@ -1,4 +1,4 @@
-_G.debug = function(obj)
+_G.deb = function(obj)
 	naughty.notify({ preset = naughty.config.presets.critical,
 		title = "Debug Output",
 		text = tostring(obj),
@@ -25,6 +25,7 @@ local function change_opacity(c, d)
 	local o = c.opacity + d
 	o = math.min(math.max(0.05, o), 1)
 	c.opacity = o
+	deb(c.opacity)
 end
 
 _G.opacity_up = function(c)
@@ -37,19 +38,19 @@ end
 -- }}}
 
 _G.hspacer = function(size)
-	local w = widget({ type = "textbox" })
+	local w = wibox.widget.textbox()
 	w.width = size
 	return w
 end
 
 _G.vspacer = function(size)
-	local w = widget({ type = "imagebox" })
+	local w = wibox.widget.imagebox()
 	local im = image.argb32(1, size, nil)
 	w.image = im
 	return w
 end
 
-require("lfs") 
+lfs = require("lfs") 
 
 -- {{{ Run programm once
 local function processwalker()
