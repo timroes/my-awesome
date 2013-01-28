@@ -79,6 +79,7 @@ client_buttons = awful.util.table.join(
 	-- Mod + Left Mouse: Move window
 	awful.button({ modkey }, 1, function(c) 
 		client.focus = c
+		c:raise()
 		awful.mouse.client.move(c)
 	end),
 	-- Mod + Middle Mouse: Close client
