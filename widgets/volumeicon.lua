@@ -45,7 +45,7 @@ local function update()
 		format = "[%s<span color='red'>M</span>]"
 	end
 
-	widget:set_text(string.format(format, status.vol))
+	widget:set_markup(string.format(format, status.vol))
 
 end
 
