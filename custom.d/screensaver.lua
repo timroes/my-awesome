@@ -2,7 +2,8 @@
 local suspendfor = {
 	"Mark of the Ninja",
 	"Spelunky",
-	"Isaac"
+	"Isaac",
+	"Bastion"
 }
 
 client.connect_signal("manage", function(c, startup)

@@ -128,6 +128,11 @@ awful.rules.rules = {
 			border_width = 0
 		}
 	},{
+		rule = { class = "Steam" },
+		properties = {
+			border_width = 0
+		}
+	},{
 		rule = { class = "RAIL" },
 		properties = {
 			border_width = 0
