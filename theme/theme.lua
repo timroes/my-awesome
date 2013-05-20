@@ -2,21 +2,21 @@
 
 theme = {}
 
-theme.font          = "sans 11"
+theme.font          = "Roboto Light 11"
 
 theme.bg_normal     = "#333333"
-theme.bg_focus      = "#535d6c"
-theme.bg_urgent     = "#ff0000"
+theme.bg_focus      = "#505050"
+theme.bg_urgent     = "#33B5E5"
 theme.bg_minimize   = "#333333"
 
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+theme.fg_normal     = "#BBBBBB"
+theme.fg_focus      = "#BBBBBB"
+theme.fg_urgent     = "#000000"
+theme.fg_minimize   = "#666666"
 
-theme.border_width  = "2"
+theme.border_width  = "1"
 theme.border_normal = "#333333"
-theme.border_focus  = "#339933"
+theme.border_focus  = "#33B5E5"
 theme.border_marked = "#339933"
 
 -- Taskswitcher theme
