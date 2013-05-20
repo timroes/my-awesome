@@ -56,13 +56,14 @@ local last_stats = nil
 
 local function get_device(dev)
 	local devs = get_all_devices()
+	if not devs[dev] then return nil end
 	local fields = split(trim(devs[dev]))
 	local down = fields[2]
 	local up = fields[10]
 	local ret = nil
 	if last_stats then
-		local ddown = round((down - last_stats.down) / 1024, 1)
-		local dup = round((up - last_stats.up) / 1024, 1)
+		local ddown = (down - last_stats.down)
+		local dup = (up - last_stats.up)
 
 		if ddown >= 0 and dup >= 0 then
 			ret = { down = ddown, up = dup }
@@ -74,20 +75,30 @@ local function get_device(dev)
 	return ret
 end
 
+local function readableSize(bytes)
+	local unit = 1024
+	if bytes < unit then return string.format("%db", math.floor(bytes)) end
+	local exp = math.floor(math.log(bytes) / math.log(unit))
+	local UNITS = { 'k','m','g' }
+	return string.format("%.1f%s", round((bytes / math.pow(unit, exp)), 1), UNITS[exp])
+end
+
 local function create(_, dev)
 	
 	widget = w.widget.textbox()
+	widget.fit = function(widget, w, h) return 150, h end
+	widget:set_align("center")
 
 	device = dev or 'lo'
 	local refresh = timer({ timeout = 1 })
 	refresh:connect_signal('timeout', function(self)
 		local dev = get_device(device)
 		if dev then
-			widget:set_text(string.format('↓ %05.1f ↑ %05.1f', dev.down, dev.up))
+			widget:set_markup(string.format('<span color="#CCFF33">↓ %s</span>  <span color="#F53D00">↑ %s</span>', readableSize(dev.down), readableSize(dev.up)))
 		end
 	end)
 	refresh:start()
-	get_device('wlan0')
+	get_device(device)
 
 	return widget
 end
